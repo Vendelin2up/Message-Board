@@ -1,0 +1,76 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: fe23ht
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: message-board
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1  # Välj rätt region (t.ex. Stockholm)
+  environment:
+    MESSAGES_TABLE: messages  # Referens till DynamoDB-tabellen för meddelanden
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:Scan
+            - dynamodb:Query
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+          Resource: 
+             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.MESSAGES_TABLE}
+functions:
+  postMessage:
+    handler: handler.postMessage
+    events:
+      - http:
+          path: messages
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowCredentials: false
+
+  getMessages:
+    handler: handler.getMessages
+    events:
+      - http:
+          path: messages
+          method: get
+          cors:
+            origins: '*'  # Tillåt alla domäner
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowCredentials: false
+
+  updateMessage:
+    handler: handler.updateMessage
+    events:
+      - http:
+          path: messages/{id}
+          method: put
+
+resources:
+  Resources:
+    MessagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.MESSAGES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S  # 'S' står för String
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH  # Primärnyckeln för tabellen
+        BillingMode: PAY_PER_REQUEST  # Betala bara för den trafik som används
