@@ -1,0 +1,112 @@
+
+body {
+  background-color: #c4c4c4;
+  margin: 0;
+}
+
+
+/* Anslagstavla */
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background-color: #a78046;
+}
+
+/* Stil för varje meddelande som en post-it */
+.post-it {
+  width: 200px;
+  height: 220px; /* Ökat höjden för att få plats med knappar och textarea */
+  background-color: #fff176;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 14px;
+  position: relative;
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+
+.post-it:hover {
+  transform: rotate(0deg);
+}
+
+.post-it strong {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.post-it em {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Generell knappstil */
+button {
+  background-color: #ff5252;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Position för Cancel-knappen */
+.post-it button.cancel-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Formulär för nytt meddelande */
+form {
+  margin-top: 20px;
+}
+
+form input,
+form textarea {
+  display: block;
+  margin-bottom: 15px;
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Save-knappen placerad under textarea */
+.post-it form button.save-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Gör knappen fullbredd */
+}
+
+.post-it button.save-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Textfältet under redigering */
+.post-it textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
