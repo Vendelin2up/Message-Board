@@ -37,15 +37,15 @@ export const updateMessage = async (id, updatedMessage) => {
     }
   };
   
-  export const getMessagesByUser = async (username) => {
-    try {
-      const response = await axios.get(`${API_URL}/messages`, {
-        params: { username },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching messages for user:', error);
-      throw error;
-    }
-  };
+  // export const getMessagesByUser = async (username) => {
+  //   try {
+  //     const response = await axios.get(`${API_URL}/messages`, {
+  //       params: { username },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Error fetching messages for user:', error);
+  //     throw error;
+  //   }
+  // };
   

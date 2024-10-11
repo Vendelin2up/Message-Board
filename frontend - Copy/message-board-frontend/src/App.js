@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMessages, postMessage, updateMessage, getMessagesByUser } from './api.js'; // Lägg till getMessagesByUser
+import { getMessages, postMessage, updateMessage } from './api.js'; // Lägg till getMessagesByUser
 import './App.css';  // Importera din CSS-fil
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   const [newMessage, setNewMessage] = useState({ username: '', text: '' });
   const [editingMessage, setEditingMessage] = useState(null);  // Vilket meddelande som redigeras
   const [editText, setEditText] = useState('');  // Text för det redigerade meddelandet
-  const [searchUsername, setSearchUsername] = useState('');  // Sökfält för användarnamn
+  // const [searchUsername, setSearchUsername] = useState('');  // Sökfält för användarnamn
 
   useEffect(() => {
     async function fetchMessages() {
@@ -54,21 +54,21 @@ function App() {
     setEditText(message.text);  // Fyll textfältet med det befintliga meddelandet
   };
 
-  // Hantera sök efter användarnamn
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (searchUsername) {
-        const data = await getMessagesByUser(searchUsername);  // Hämta meddelanden för specifik användare
-        setMessages(data);
-      } else {
-        const data = await getMessages();  // Om inget användarnamn anges, hämta alla meddelanden
-        setMessages(data);
-      }
-    } catch (error) {
-      console.error('Error fetching messages for user:', error);
-    }
-  };
+  // // Hantera sök efter användarnamn
+  // const handleSearchSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (searchUsername) {
+  //       const data = await getMessagesByUser(searchUsername);  // Hämta meddelanden för specifik användare
+  //       setMessages(data);
+  //     } else {
+  //       const data = await getMessages();  // Om inget användarnamn anges, hämta alla meddelanden
+  //       setMessages(data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching messages for user:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -92,8 +92,8 @@ function App() {
         />
         <button type="submit">Post Message</button>
       </form>
-
-      {/* Sökfält för att hämta meddelanden för en specifik användare */}
+{/* 
+      Sökfält för att hämta meddelanden för en specifik användare
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
@@ -102,7 +102,7 @@ function App() {
           placeholder="Search by username"
         />
         <button type="submit">Search</button>
-      </form>
+      </form> */}
 
       <h2>All Messages</h2>
       <div className="board">
